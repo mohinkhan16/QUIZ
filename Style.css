@@ -1,0 +1,100 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  width: 400px;
+  text-align: center;
+  margin: auto;
+}
+
+h1 {
+  color: #00ffff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+}
+
+#question {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+
+#choices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;
+  
+}
+
+#choices button {
+  padding: 0.75rem;
+  width: 100%;
+  background: rgba(0, 255, 255, 0.08);
+  border: 2px solid #00ffff;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+  box-shadow: 0 0 6px rgba(0, 255, 255, 0.2);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+}
+
+#choices button:hover {
+  background-color: #00ffff;
+  color: #000;
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+}
+
+#nextBtn, #restartBtn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #00ffff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+#nextBtn:hover, #restartBtn:hover {
+  background-color: #00e6e6;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+#result {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc;
+  text-align: left;
+}
+
+#timer {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.hidden {
+  display: none;
+}
+

@@ -1,5 +1,4 @@
 
-
 const quizData = [
   {
     id: 1,
@@ -68,25 +67,41 @@ const quizData = [
   {
     id: 10,
     question: "Which HTML tag is used for images?",
-    options: ["img", "image", "pic", "src"],
-    answer: "img"
+    options: ["<img>", "<image>", "<pic>", "<src>"],
+    answer: "<img>"
   }
 ];
 
+let currentQuestion = 0;
+let score = 0;
+// let timeLeft = 0;
+let timer;
+let userAnswers = []; 
+
 const questionEl = document.getElementById("question");
 const choicesEl = document.getElementById("choices");
-const timeEl = document.getElementById("time");
 const nextBtn = document.getElementById("nextBtn");
-const numberE1=document.getElementById("number")
+const resultEl = document.getElementById("result");
+const restartBtn = document.getElementById("restartBtn");
+const timeEl = document.getElementById("time");
+const quizContainer = document.getElementById("quiz");
 
-let timer;
-let currentQuestion = 0;
-let timeLeft = 30;
- 
+
+function startQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  userAnswers = [];
+
+  quizContainer.classList.remove("hidden");
+  resultEl.classList.add("hidden");
+  restartBtn.classList.add("hidden");
+
+  showQuestion();
+}
+
 function showQuestion() {
   clearInterval(timer);
   timeLeft = 30;
-
   timeEl.textContent = timeLeft;
 
   const q = quizData[currentQuestion];
@@ -94,46 +109,93 @@ function showQuestion() {
 
   choicesEl.innerHTML = "";
 
-  q.options.forEach(option => {
+  q.options.forEach(choice => {
     const btn = document.createElement("button");
-    btn.textContent = option;
-    btn.addEventListener("click",()=>{
-      nextQuestion();
-    })
+    btn.textContent = choice;
 
-    btn.onclick = () => {
-      clearInterval(timer);
-      Array.from(choicesEl.children).forEach(b => b.disabled = true);
-    };
+    btn.addEventListener("click", () => selectAnswer(choice));
 
     choicesEl.appendChild(btn);
   });
 
-  timer = setInterval(() => {
-    timeLeft--;
-    timeEl.textContent = timeLeft;
+  startTimer();
+}
 
-    if (timeLeft === 0) {
-      clearInterval(timer);
-      nextQuestion();
-    }
-  }, 1000);
+function selectAnswer(selected) {
+  clearInterval(timer);
+
+  const correctAnswer = quizData[currentQuestion].answer;
+
+  
+  userAnswers[currentQuestion] = selected;
+
+  if (selected === correctAnswer) {
+    score++;
+  }
+
+  Array.from(choicesEl.children).forEach(btn => {
+    btn.disabled = true;
+    btn.style.opacity = "0.5";
+  });
+
+  setTimeout(() => {
+    nextQuestion();
+  }, 500);
 }
 
 function nextQuestion() {
   currentQuestion++;
+
   if (currentQuestion < quizData.length) {
     showQuestion();
   } else {
-    questionEl.textContent = "Quiz Finished";
-    choicesEl.innerHTML = "";
-    timeEl.textContent = "";
+    endQuiz();
   }
-};
+}
 
+function endQuiz() {
+  clearInterval(timer);
+  showResult(); 
+}
+
+function showResult() {
+  quizContainer.classList.add("hidden");
+
+  resultEl.innerHTML = `<h2>Your Score: ${score}/${quizData.length}</h2>`;
+
+  quizData.forEach((q, index) => {
+    let userAns = userAnswers[index] || "Not Attempted";
+
+    let div = document.createElement("div");
+
+    div.innerHTML = `
+      <h4>${index + 1}. ${q.question}</h4>
+      <p>Correct: ${q.answer}</p>
+      <p>Your: ${userAns}</p>
+      <hr>
+    `;
+
+    resultEl.appendChild(div);
+  });
+
+  resultEl.classList.remove("hidden");
+  restartBtn.classList.remove("hidden");
+}
+
+
+restartBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", nextQuestion);
 
-showQuestion();
+startQuiz();
 
+ function startTimer() {
+   timer = setInterval(() => {
+     timeLeft--;
+     timeEl.textContent = timeLeft;
 
-
+     if (timeLeft === 0) {
+       clearInterval(timer);
+      nextQuestion();
+    }
+   }, 1000);
+}

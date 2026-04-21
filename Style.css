@@ -3,7 +3,7 @@ body {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #ffffff;
   margin: 0;
-  padding: 20px;
+  padding: 80px;
   min-height: 100vh;
 }
 
@@ -30,12 +30,10 @@ h1 {
   color: #ffffff;
 }
 
-
 #choices {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); 
+  grid-template-columns: repeat(2, 1fr); /* 2 buttons per row */
   gap: 10px;
-  
 }
 
 #choices button {
@@ -97,4 +95,3 @@ h1 {
 .hidden {
   display: none;
 }
-

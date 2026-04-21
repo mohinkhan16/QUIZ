@@ -74,7 +74,7 @@ const quizData = [
 
 let currentQuestion = 0;
 let score = 0;
-// let timeLeft = 0;
+let timeLeft = 0;
 let timer;
 let userAnswers = []; 
 
@@ -191,11 +191,11 @@ startQuiz();
  function startTimer() {
    timer = setInterval(() => {
      timeLeft--;
-     timeEl.textContent = timeLeft;
+    timeEl.textContent = timeLeft;
 
      if (timeLeft === 0) {
        clearInterval(timer);
-      nextQuestion();
-    }
+       nextQuestion();
+     }
    }, 1000);
 }
